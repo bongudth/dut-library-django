@@ -14,5 +14,6 @@ def favourite_add(request):
         book_id = int(request.POST.get('book_id'))
         book = get_object_or_404(Book, id=book_id)
         favourite.add(book=book)
-        response = JsonResponse({'status': 'success'})
+        favourite_quantity = favourite.__len__()
+        response = JsonResponse({'favourite_quantity': favourite_quantity})
         return response

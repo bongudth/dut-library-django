@@ -43,7 +43,7 @@
         </h2>
         <p class="lead">{{ book.author }}</p>
     </div>
-    <div class="bg-dark text-light shadow-sm mx-auto d-flex flex-column py-5 align-items-start justify-content-center gap-4" style="border-radius: 21px 21px 0 0; padding-left: 32%; padding-right: 15%; min-height: 250px;">
+    <div class="bg-dark text-light shadow-sm mx-auto d-flex flex-column py-5 align-items-start justify-content-center gap-4" style="border-radius: 21px 21px 0 0; padding-left: 32%; padding-right: 15%; min-height: 300px;">
         <div>{{ book.description }}</div>
     </div>
 </div>
@@ -59,7 +59,9 @@
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
                 action: 'post',
             },
-            success: function(json) {},
+            success: function(json) {
+                document.getElementById('favourite_quantity').innerHTML = json.favourite_quantity;
+            },
             error: function(xhr, errmsg, err) {},
         })
     })

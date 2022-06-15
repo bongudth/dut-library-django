@@ -13,3 +13,6 @@ class Favourite:
             self.favourite[book_id] = {'title': book.title}
 
         self.session.modified = True
+
+    def __len__(self):
+        return len(self.favourite)
