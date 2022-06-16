@@ -1,19 +1,29 @@
 {% extends 'registration/base.html' %}
+{% load static %}
+{% block title %}Library | Login{% endblock title %}
 
 {% block form %}
-<form class="form" method="post" action="{% url 'user_auth:login' %}">
+<form class="form" method="post" action="{% url 'user_auth:login' %}" style="min-width: 60%; margin-top: 250px;">
     {% csrf_token %}
-    <table class="table">
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username" class="form-control"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password" class="form-control"></td>
-        </tr>
-    </table>
-    <input type="submit" value="Login" class="btn btn-primary">
-    <a href="{% url 'user_auth:register' %}" class="btn btn-outline-primary">Register</a>
+    <div class="row g-0 border rounded overflow-hidden flex-md-row align-items-center shadow-sm h-md-250 position-relative p-5" style="gap: 3rem;">
+        <div class="col d-flex flex-column position-static p-0" style="gap: 1rem;">
+            <div class="d-flex flex-column">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="d-flex flex-column">
+                <label for="username" class="form-label">Password</label>
+                <input type="text" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+            </div>
+            <div>
+                <input type="submit" value="Login" class="btn btn-dark">
+                <a href="{% url 'user_auth:register' %}" class="btn btn-outline-dark">Register</a>
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <h4>Welcome back!</h4>
+            <img src="{% static 'images/logo.png' %}" style="width: 6rem;" />
+        </div>
+    </div>
 </form>
 {% endblock %}
