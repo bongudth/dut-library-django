@@ -10,7 +10,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'category', 'author', 'description', 'image_url', 'is_available', 'created_at', 'updated_at']
-    list_filter = ['category', 'is_available', 'created_at']
-    list_editable = ['is_available']
+    list_display = ['title', 'slug', 'category', 'author', 'description', 'image_url', 'quantity', 'created_at', 'updated_at']
+    list_filter = ['category', 'created_at']
     prepopulated_fields = {'slug': ('title',)}
