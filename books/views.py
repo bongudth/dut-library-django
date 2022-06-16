@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Category, Book
 
 # Create your views here.
 
+@login_required(login_url='/auth/login')
 def home(request):
     books = Book.objects.all()
     return render(request, 'library/home.html', {'books': books})
