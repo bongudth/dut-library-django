@@ -10,7 +10,7 @@ class Favourite:
         book_id = book.id
 
         if book_id not in self.favourite:
-            self.favourite[book_id] = {'title': book.title}
+            self.favourite[book_id] = {'get_absolute_url': book.get_absolute_url(), 'title': book.title, 'author': book.author, 'description': book.description, 'image_url': book.image_url}
 
         self.session.modified = True
 
