@@ -17,3 +17,12 @@ def favourite_add(request):
         favourite_quantity = favourite.__len__()
         response = JsonResponse({'favourite_quantity': favourite_quantity})
         return response
+
+def favourite_delete(request):
+    favourite = Favourite(request)
+    if request.POST.get('action') == 'post':
+        book_id = int(request.POST.get('book_id'))
+        favourite.delete(book_id=book_id)
+        favourite_quantity = favourite.__len__()
+        response = JsonResponse({'favourite_quantity': favourite_quantity})
+        return response
