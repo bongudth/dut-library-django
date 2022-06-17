@@ -3,68 +3,71 @@
 {% block title %}Library | Home page{% endblock title %}
 
 {% block content %}
-{% comment %} 
-    <div class="input-group rounded" style="width:70%;  margin: 0 auto;">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value="{{ keyword | default:'' }}/>
-        <span class="input-group-text border-0" id="search-addon">
-            <a href="{% url 'user_auth:logout' %}" class="text-decoration-none">
-                <button type="button" class="btn btn-outline-dark d-flex align-items-center gap-2 mx-0 px-4">
 
-                    <span>Search</span>
-                </button>
-            </a>
-        </span> {% endcomment %}
-        {% comment %} <div style="width:70%;  margin: 0 auto;" >
-        <input type="text" class="form-control rounded" placeholder="Type to search something" name="keyword" aria-label="Search"
-        aria-describedby="search-addon" value="{{ keyword | default:'' }}"/>
-    <input type="submit" value="Search" class="btn btn-outline-primary"> {% endcomment %}
-    <div>
-        <div class="input-group">
-            <input type="text" class="form-control rounded" placeholder="Keyword" name="keyword" aria-label="Search"
-                aria-describedby="search-addon" value="{{ keyword | default:'' }}"/>
-                <a href="{% url "books:book_search"%} ">
-            <input type="submit" value="Search" class="btn btn-outline-primary">
-                </a>
-        </div>
+<!-- <div class="input-group rounded" style="width:70%;  margin: 0 auto;">
+    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        aria-describedby="search-addon" value="{{ keyword | default:'' }}/>
+        <span class=" input-group-text border-0" id="search-addon">
+    <a href="{% url 'user_auth:logout' %}" class="text-decoration-none">
+        <button type="button" class="btn btn-outline-dark d-flex align-items-center gap-2 mx-0 px-4">
+            <span>Search</span>
+        </button>
+    </a>
+    </span>
+    <div style="width:70%;  margin: 0 auto;">
+        <input type="text" class="form-control rounded" placeholder="Type to search something" name="keyword"
+            aria-label="Search" aria-describedby="search-addon" value="{{ keyword | default:'' }}" />
+        <input type="submit" value="Search" class="btn btn-outline-primary">
     </div>
+</div> -->
 
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 fw-normal">Search, Read, Review</h1>
-            <p class="lead fw-normal">Something short and leading about the collection below - its contents, the creator, etc.</p>
-        </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+<form class="form" action="{% url 'books:book_search' %}">
+    <div class="input-group">
+        <input type="text" class="form-control rounded" placeholder="Keyword" name="keyword" aria-label="Search"
+            aria-describedby="search-addon" value="{{ keyword | default:'' }}" />
+        <input type="submit" value="Search" class="btn btn-outline-primary">
     </div>
+</form>
 
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Search, Read, Review</h1>
+        <p class="lead fw-normal">Something short and leading about the collection below - its contents, the
+            creator,
+            etc.</p>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
 
-                {% for book in books %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-                <div class="col">
-                    <a href="{{ book.get_absolute_url }}" class="text-decoration-none text-dark">
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="{{ book.image_url }}" class="img-fluid rounded-start" alt="book-cover">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ book.title|truncatechars:40 }}</h5>
-                                        <p class="card-text"><small class="text-muted">{{ book.author }}</small></p>
-                                        <p class="card-text">{{ book.description|truncatechars:80 }}</p>
-                                    </div>
+            {% for book in books %}
+
+            <div class="col">
+                <a href="{{ book.get_absolute_url }}" class="text-decoration-none text-dark">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ book.image_url }}" class="img-fluid rounded-start" alt="book-cover">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ book.title|truncatechars:40 }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ book.author }}</small></p>
+                                    <p class="card-text">{{ book.description|truncatechars:80 }}</p>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-
-                {% endfor %}
-
+                    </div>
+                </a>
             </div>
+
+            {% endfor %}
+
         </div>
     </div>
+</div>
 {% endblock %}
