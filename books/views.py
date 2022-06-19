@@ -12,7 +12,7 @@ def home(request):
 
 
 def book_all(request):
-    books = Book.objects.all()
+    books = Book.objects.all().order_by('title')
     return render(request, 'library/books/index.html', {'books': books})
 
 
@@ -23,7 +23,7 @@ def book_detail(request, slug):
 
 def book_filter_by_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    books = Book.objects.filter(category=category)
+    books = Book.objects.filter(category=category).order_by('title')
     return render(request, 'library/books/category.html', {'category': category, 'books': books})
 
 

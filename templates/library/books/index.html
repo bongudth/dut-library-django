@@ -3,34 +3,45 @@
 {% block title %}Library | Home page{% endblock title %}
 
 {% block content %}
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<div class="container d-flex justify-content-center">
+    <form role="search" style="width: 60%;" action="{% url 'books:book_search' %}">
+        <div class="input-group mb-3">
+            <input name="keyword" type="text" class="form-control" placeholder="Searching for a book..."
+                aria-label="Searching for a book..." aria-describedby="bth-search-book"
+                value="{{ keyword | default:'' }}">
+            <button class="btn btn-outline-dark" type="submit" id="bth-search-book">Search</button>
+        </div>
+    </form>
+</div>
 
-                {% for book in books %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-                <div class="col">
-                    <a href="{{ book.get_absolute_url }}" class="text-decoration-none text-dark">
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="{{ book.image_url }}" class="img-fluid rounded-start" alt="book-cover">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ book.title|truncatechars:40 }}</h5>
-                                        <p class="card-text"><small class="text-muted">{{ book.author }}</small></p>
-                                        <p class="card-text">{{ book.description|truncatechars:80 }}</p>
-                                    </div>
+            {% for book in books %}
+
+            <div class="col">
+                <a href="{{ book.get_absolute_url }}" class="text-decoration-none text-dark">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ book.image_url }}" class="img-fluid rounded-start" alt="book-cover">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ book.title|truncatechars:40 }}</h5>
+                                    <p class="card-text"><small class="text-muted">{{ book.author }}</small></p>
+                                    <p class="card-text">{{ book.description|truncatechars:80 }}</p>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-
-                {% endfor %}
-
+                    </div>
+                </a>
             </div>
+
+            {% endfor %}
+
         </div>
     </div>
+</div>
 {% endblock %}
