@@ -1,7 +1,9 @@
+from email import message
 from gc import get_objects
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+import datetime
 from .models import Category, Book, History
 
 # Create your views here.
@@ -19,7 +21,7 @@ def book_all(request):
 
 
 def book_detail(request, slug):
-    book = get_object_or_404(Book, slug=slug)
+    book = get_object_or_404(Book, slug=slug)    
     return render(request, 'library/books/detail.html', {'book': book})
 
 
@@ -46,7 +48,7 @@ def favourite_all(request):
 
 
 def favourite_add(request):
-    if request.POST.get('action') == 'post':
+    if request.POST.get('action') == 'POST':
         book_id = int(request.POST.get('book_id'))
         book = get_object_or_404(Book, id=book_id)
         book.favourite.add(request.user)
@@ -56,7 +58,7 @@ def favourite_add(request):
 
 
 def favourite_delete(request):
-    if request.POST.get('action') == 'post':
+    if request.POST.get('action') == 'POST':
         book_id = int(request.POST.get('book_id'))
         book = get_object_or_404(Book, id=book_id)
         book.favourite.remove(request.user)
@@ -66,10 +68,26 @@ def favourite_delete(request):
 
 
 def history_of_user(request):
+    if request.method == 'POST':
+        book_id = request.POST.get('book_id')
+        book = get_object_or_404(Book, id=book_id)
+        print(book)
+        
+        if book.quantity > 0: 
+            user = request.user
+            history = History(user=user, book=book, date_expired=datetime.datetime.now() + datetime.timedelta(days=7))
+            history.save()
+            book.quantity -= 1
+            book.save()
+            message = "You have successfully borrowed the book."
+        else:
+            message = "Sorry, this book is not available."
+            
+        return JsonResponse({'message': message})
+    
     history = History.objects.filter(user=request.user)
     context = {
         'history': history
     }
-    
+
     return render(request, 'library/history/index.html', context)
-    
