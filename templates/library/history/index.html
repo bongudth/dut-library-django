@@ -1,0 +1,26 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}Book | History{% endblock title %}
+
+{% block content %}
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <h1 class="display-4 fw-normal">My history</h1>
+    </div>
+
+    <div class="album py-5 bg-light" style="min-height: 300px;">
+        <div class="container">
+            <div class="col row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                {% for book in history %}
+                    {{book.user}}
+                    {{book.book}}
+                    {{book.date_borrowed}}
+                    {{book.date_expired}}
+                    {{book.date_returned}}
+                    <br>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

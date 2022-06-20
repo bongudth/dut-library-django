@@ -1,7 +1,8 @@
+from gc import get_objects
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Category, Book
+from .models import Category, Book, History
 
 # Create your views here.
 
@@ -28,15 +29,15 @@ def book_filter_by_category(request, slug):
     return render(request, 'library/books/category.html', {'category': category, 'books': books})
 
 
-def book_searching(req):
-    keyword = req.GET.get('keyword')
+def book_searching(request):
+    keyword = request.GET.get('keyword')
     books = Book.objects.filter(title__icontains=keyword)
     context = {
         'keyword': keyword,
         'books': books.order_by('title'),
     }
-    
-    return render(req, 'library/books/index.html', context)
+
+    return render(request, 'library/books/index.html', context)
 
 
 def favourite_all(request):
@@ -62,3 +63,13 @@ def favourite_delete(request):
         favourite_quantity = request.user.favourite_books.all().count()
         response = JsonResponse({'favourite_quantity': favourite_quantity})
         return response
+
+
+def history_of_user(request):
+    history = History.objects.filter(user=request.user)
+    context = {
+        'history': history
+    }
+    
+    return render(request, 'library/history/index.html', context)
+    

@@ -38,8 +38,7 @@ def login_account(req):
             login(req, user)
             return redirect('books:home')
 
-    context = {}
-    return render(req, 'registration/login.html', context)
+    return render(req, 'registration/login.html')
 
 
 def logout_account(req):

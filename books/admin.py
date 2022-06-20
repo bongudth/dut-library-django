@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Book
+from .models import Category, Book, History
 
 # Register your models here.
 
@@ -13,3 +13,5 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'category', 'author', 'description', 'image_url', 'quantity', 'created_at', 'updated_at']
     list_filter = ['category', 'created_at']
     prepopulated_fields = {'slug': ('title',)}
+    
+admin.site.register(History)

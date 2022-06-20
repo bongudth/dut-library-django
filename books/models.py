@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -41,3 +42,16 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class History(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    date_borrowed = models.DateTimeField(auto_now_add=True)
+    date_expired = models.DateTimeField()
+    date_returned = models.DateTimeField(blank=True, null=True)
+    
+    class Meta:
+        verbose_name_plural = 'histories'
+        ordering = ('-date_borrowed',)
+    
