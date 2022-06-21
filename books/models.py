@@ -43,6 +43,9 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+    def is_in_stock(self):
+        return self.quantity > 0
+
 
 class History(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
