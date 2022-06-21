@@ -26,7 +26,7 @@
                             </div>
                         </a>
                         <div class="d-flex flex-column justify-content-center align-items-center gap-2" style="min-width: fit-content">
-                            <button type="button" class="btn d-flex align-items-center gap-2 {% if book.is_in_stock %}btn-outline-success{% else %}btn-outline-dark{% endif %}" data-bs-toggle="modal" {% if book.is_in_stock %}data-bs-target="#confirmBorrowModal"{% else %}disabled{% endif %}>
+                            <button type="button" class="btn d-flex align-items-center gap-2 {% if book.is_in_stock %}btn-outline-success{% else %}btn-outline-dark{% endif %}" data-bs-toggle="modal" {% if book.is_in_stock %}data-bs-target="#confirmBorrowModal-{{book.id}}"{% else %}disabled{% endif %}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                     class="bi bi-inboxes" viewBox="0 0 16 16">
                                     <path
@@ -51,7 +51,7 @@
             </div>
 
             <form class="form" method="post" action="{% url 'books:history_of_user' %}">  {% csrf_token %}
-                <div class="modal fade" id="confirmBorrowModal" tabindex="-1" aria-labelledby="confirmBorrowModalLabel"
+                <div class="modal fade" id="confirmBorrowModal-{{book.id}}" tabindex="-1" aria-labelledby="confirmBorrowModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">

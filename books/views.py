@@ -94,7 +94,6 @@ def favourite_delete(request):
 @login_required(login_url='/auth/login')
 def history_of_user(request):
     if request.method == 'POST':
-        print(request.POST)
         book_id = request.POST.get('borrowed')
         book = get_object_or_404(Book, id=book_id)
 
