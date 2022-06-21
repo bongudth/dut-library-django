@@ -57,4 +57,7 @@ class History(models.Model):
     class Meta:
         verbose_name_plural = 'histories'
         ordering = ('-date_borrowed',)
+        
+    def __str__(self):
+        return f'{self.book} {self.user}'
     
