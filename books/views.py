@@ -1,5 +1,3 @@
-from email import message
-from gc import get_objects
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -101,8 +99,10 @@ def history_of_user(request):
         return JsonResponse({'message': message})
     
     history = History.objects.filter(user=request.user)
+    history_quantity = history.count()
     context = {
-        'history': history
+        'history': history,
+        'history_quantity': history_quantity
     }
 
     return render(request, 'library/history/index.html', context)

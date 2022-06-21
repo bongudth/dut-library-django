@@ -7,20 +7,32 @@
         <h1 class="display-4 fw-normal">My history</h1>
     </div>
 
-    <div class="album py-5 bg-light" style="min-height: 300px;">
-        <div class="container">
-            <div class="col row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="container bg-light border rounded shadow-sm p-5">
+        <table class="table table-bordered border-dark table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date borrowed</th>
+                    <th scope="col">Date expired</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                
+                {% for item in history %}
+                {% with book=item.book %}
 
-                {% for book in history %}
-                    {{book.user}}
-                    {{book.book}}
-                    {{book.date_borrowed}}
-                    {{book.date_expired}}
-                    {{book.date_returned}}
-                    <br>
+                <tr>
+                    <th scope="row">{{ book.id }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>{{ item.date_borrowed }}</td>
+                    <td>{{ item.date_expired }}</td>
+                </tr>
+
+                {% endwith %}
                 {% endfor %}
-
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
+
 {% endblock %}
