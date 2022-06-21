@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 import datetime
 from .models import Category, Book, History
@@ -82,7 +82,8 @@ def favourite_delete(request):
 
 def history_of_user(request):
     if request.method == 'POST':
-        book_id = request.POST.get('book_id')
+        print(request.POST)
+        book_id = request.POST.get('borrowed')
         book = get_object_or_404(Book, id=book_id)
         
         if book.is_in_stock:
@@ -93,9 +94,8 @@ def history_of_user(request):
             book.save()
             message = "You have successfully borrowed the book."
         else:
-            message = "Sorry, this book is not available."
-            
-        return JsonResponse({'message': message})
+            message = "Sorry, this book is not available." 
+    
     
     history = History.objects.filter(user=request.user)
     history_quantity = history.count()
