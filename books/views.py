@@ -84,9 +84,8 @@ def history_of_user(request):
     if request.method == 'POST':
         book_id = request.POST.get('book_id')
         book = get_object_or_404(Book, id=book_id)
-        print(book)
         
-        if book.quantity > 0: 
+        if book.is_in_stock:
             user = request.user
             history = History(user=user, book=book, date_expired=datetime.datetime.now() + datetime.timedelta(days=7))
             history.save()

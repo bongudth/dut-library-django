@@ -15,7 +15,6 @@ def register_account(req):
         form = CreateUserForm(req.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get('username')
             return redirect('user_auth:login')
 
     context = {
